@@ -15,16 +15,36 @@ test:
 production:
   primary:
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] || ENV["DATABASE_PRIVATE_URL"] || ENV["DATABASE_PUBLIC_URL"] || ENV["POSTGRES_URL"] %>
+    host: <%= ENV["PGHOST"] %>
+    port: <%= ENV["PGPORT"] %>
+    database: <%= ENV["PGDATABASE"] %>
+    username: <%= ENV["PGUSER"] %>
+    password: <%= ENV["PGPASSWORD"] %>
   cache:
     <<: *default
-    url: <%= ENV["CACHE_DATABASE_URL"] || ENV["DATABASE_URL"] %>
+    url: <%= ENV["CACHE_DATABASE_URL"] || ENV["DATABASE_URL"] || ENV["DATABASE_PRIVATE_URL"] || ENV["DATABASE_PUBLIC_URL"] || ENV["POSTGRES_URL"] %>
+    host: <%= ENV["PGHOST"] %>
+    port: <%= ENV["PGPORT"] %>
+    database: <%= ENV["PGDATABASE"] %>
+    username: <%= ENV["PGUSER"] %>
+    password: <%= ENV["PGPASSWORD"] %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    url: <%= ENV["QUEUE_DATABASE_URL"] || ENV["DATABASE_URL"] %>
+    url: <%= ENV["QUEUE_DATABASE_URL"] || ENV["DATABASE_URL"] || ENV["DATABASE_PRIVATE_URL"] || ENV["DATABASE_PUBLIC_URL"] || ENV["POSTGRES_URL"] %>
+    host: <%= ENV["PGHOST"] %>
+    port: <%= ENV["PGPORT"] %>
+    database: <%= ENV["PGDATABASE"] %>
+    username: <%= ENV["PGUSER"] %>
+    password: <%= ENV["PGPASSWORD"] %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    url: <%= ENV["CABLE_DATABASE_URL"] || ENV["DATABASE_URL"] %>
+    url: <%= ENV["CABLE_DATABASE_URL"] || ENV["DATABASE_URL"] || ENV["DATABASE_PRIVATE_URL"] || ENV["DATABASE_PUBLIC_URL"] || ENV["POSTGRES_URL"] %>
+    host: <%= ENV["PGHOST"] %>
+    port: <%= ENV["PGPORT"] %>
+    database: <%= ENV["PGDATABASE"] %>
+    username: <%= ENV["PGUSER"] %>
+    password: <%= ENV["PGPASSWORD"] %>
     migrations_paths: db/cable_migrate

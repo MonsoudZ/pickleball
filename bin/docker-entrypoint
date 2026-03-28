@@ -1,7 +1,23 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+# Railway can expose different DB URL env names depending on service wiring.
+# Normalize to DATABASE_URL so Rails always sees a single canonical value.
+if [ -z "${DATABASE_URL:-}" ]; then
+  export DATABASE_URL="${DATABASE_PRIVATE_URL:-${DATABASE_PUBLIC_URL:-${POSTGRES_URL:-}}}"
+fi
+
+# If running a Rails web server command, prepare the database first.
+if [[ " $* " == *" ./bin/rails "* ]] && [[ " $* " == *" server "* ]]; then
+  if [ -z "${SECRET_KEY_BASE:-}" ]; then
+    echo "ERROR: SECRET_KEY_BASE is missing in production runtime environment." >&2
+    exit 1
+  fi
+
+  if [ -z "${DATABASE_URL:-}" ]; then
+    echo "ERROR: No database URL found. Set DATABASE_URL or DATABASE_PRIVATE_URL." >&2
+    exit 1
+  fi
+
   ./bin/rails db:prepare
 fi
 
