@@ -39,17 +39,25 @@ RUN apt-get update -qq && \
 COPY vendor/* ./vendor/
 COPY Gemfile Gemfile.lock ./
 
+ARG SKIP_BOOTSNAP_PRECOMPILE=1
+
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
-    bundle exec bootsnap precompile -j 1 --gemfile
+    if [ "$SKIP_BOOTSNAP_PRECOMPILE" != "1" ]; then \
+      # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
+      bundle exec bootsnap precompile -j 1 --gemfile; \
+    fi
 
 # Copy application code
 COPY . .
 
 # Precompile bootsnap code for faster boot times.
-# -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
-RUN bundle exec bootsnap precompile -j 1 app/ lib/
+# This is optional and skipped by default for better Railway build reliability.
+# To enable: set --build-arg SKIP_BOOTSNAP_PRECOMPILE=0
+RUN if [ "$SKIP_BOOTSNAP_PRECOMPILE" != "1" ]; then \
+      # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
+      bundle exec bootsnap precompile -j 1 app/ lib/; \
+    fi
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
