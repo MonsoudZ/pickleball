@@ -1,3 +1,29 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="court" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14532d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#court)"/>
+
+  <circle cx="246" cy="220" r="130" fill="#f8fafc" opacity="0.98"/>
+  <g fill="#0f766e">
+    <circle cx="194" cy="166" r="12"/>
+    <circle cx="246" cy="150" r="12"/>
+    <circle cx="298" cy="166" r="12"/>
+    <circle cx="174" cy="218" r="12"/>
+    <circle cx="226" cy="202" r="12"/>
+    <circle cx="278" cy="202" r="12"/>
+    <circle cx="330" cy="218" r="12"/>
+    <circle cx="194" cy="270" r="12"/>
+    <circle cx="246" cy="254" r="12"/>
+    <circle cx="298" cy="270" r="12"/>
+  </g>
+
+  <path d="M305 286 L360 342 Q370 352 370 366 L370 420 Q370 438 352 438 L318 438 Q300 438 300 420 L300 366 Q300 352 310 342 L327 325 L289 287 Z" fill="#d97706"/>
+  <path d="M286 278 L322 314 L308 328 L272 292 Z" fill="#92400e"/>
+
+  <rect x="66" y="66" width="380" height="380" rx="82" fill="none" stroke="#ecfeff" stroke-opacity="0.45" stroke-width="8"/>
 </svg>
