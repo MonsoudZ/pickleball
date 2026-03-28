@@ -1,0 +1,38 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] %>
+
+development:
+  <<: *default
+  database: pickleball_development
+
+test:
+  <<: *default
+  database: pickleball_test
+
+production:
+  primary:
+    <<: *default
+    database: pickleball_production
+    username: <%= ENV.fetch("PICKLEBALL_DATABASE_USER", "pickleball") %>
+    password: <%= ENV["PICKLEBALL_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *default
+    database: pickleball_production_cache
+    username: <%= ENV.fetch("PICKLEBALL_DATABASE_USER", "pickleball") %>
+    password: <%= ENV["PICKLEBALL_DATABASE_PASSWORD"] %>
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: pickleball_production_queue
+    username: <%= ENV.fetch("PICKLEBALL_DATABASE_USER", "pickleball") %>
+    password: <%= ENV["PICKLEBALL_DATABASE_PASSWORD"] %>
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: pickleball_production_cable
+    username: <%= ENV.fetch("PICKLEBALL_DATABASE_USER", "pickleball") %>
+    password: <%= ENV["PICKLEBALL_DATABASE_PASSWORD"] %>
+    migrations_paths: db/cable_migrate

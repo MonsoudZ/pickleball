@@ -1,0 +1,17 @@
+<%= turbo_frame_tag(turbo_frame_request_id || "session_popover") do %>
+  <article class="grid gap-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <p class="text-xs font-bold uppercase tracking-wide text-emerald-700"><%= @training_session.starts_at.strftime("%A, %B %-d") %> - <%= session_time_range(@training_session) %></p>
+    <h3 class="text-lg font-bold text-slate-900"><%= @training_session.title %></h3>
+    <p class="text-sm text-slate-700"><strong>Coach:</strong> <%= @training_session.coach.name %></p>
+    <p class="text-sm text-slate-700"><strong>Level:</strong> <%= @training_session.skill_level %></p>
+    <p class="text-sm text-slate-700"><strong>Location:</strong> <%= @training_session.location %></p>
+    <% if @training_session.training_program.present? %>
+      <p class="text-sm text-slate-700"><strong>Program:</strong> <%= @training_session.training_program.title %></p>
+    <% end %>
+    <p class="text-sm text-slate-700"><strong>Availability:</strong> <%= @training_session.spots_remaining %> of <%= @training_session.spots_total %> spots open</p>
+    <% if @training_session.notes.present? %>
+      <p class="text-sm text-slate-700"><strong>Session focus:</strong> <%= @training_session.notes %></p>
+    <% end %>
+
+  </article>
+<% end %>

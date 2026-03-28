@@ -1,0 +1,13 @@
+<% content_for :title, "Training Calendar" %>
+
+<main class="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+  <section>
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Turbo Frames Enabled</p>
+    <h1 class="mt-1 text-3xl font-black text-slate-900 sm:text-4xl">Pickleball Training Calendar</h1>
+    <p class="mt-2 max-w-3xl text-sm text-slate-600 sm:text-base">Use month navigation to refresh only the calendar frame, then click a session to load details without a full page reload.</p>
+  </section>
+
+  <section class="grid gap-4">
+    <%= render "calendar", month: @month, sessions_by_day: @sessions_by_day %>
+  </section>
+</main>

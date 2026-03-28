@@ -1,0 +1,85 @@
+<% content_for :title, "Pricing" %>
+
+<main class="mx-auto grid w-full max-w-6xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
+  <section class="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-7 shadow-sm sm:p-9">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Pricing</p>
+    <h1 class="mt-2 text-3xl font-black leading-tight text-slate-900 sm:text-4xl">Choose Your Training Menu</h1>
+    <p class="mt-3 text-sm text-slate-700 sm:text-base">
+      All sessions are held at a private court near Mt. Pleasent, DC. Choose a tab below to view the menu by training format.
+    </p>
+  </section>
+
+  <section data-controller="tabs" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div class="mb-4 flex flex-wrap gap-2">
+      <button type="button" data-tabs-target="button" data-tab-id="private" data-action="click->tabs#switch" class="rounded-full border px-4 py-2 text-sm font-semibold transition">Private Lessons</button>
+      <button type="button" data-tabs-target="button" data-tab-id="semi_private" data-action="click->tabs#switch" class="rounded-full border px-4 py-2 text-sm font-semibold transition">Semi-Private</button>
+      <button type="button" data-tabs-target="button" data-tab-id="group" data-action="click->tabs#switch" class="rounded-full border px-4 py-2 text-sm font-semibold transition">Small Group</button>
+      <button type="button" data-tabs-target="button" data-tab-id="junior" data-action="click->tabs#switch" class="rounded-full border px-4 py-2 text-sm font-semibold transition">Junior Track</button>
+    </div>
+
+    <div data-tabs-target="panel" data-tab-id="private" class="grid gap-3">
+      <article class="rounded-xl border border-slate-200 p-4">
+        <h2 class="text-lg font-bold text-slate-900">Private Lesson Menu</h2>
+        <ul class="mt-2 grid gap-1 text-sm text-slate-600">
+          <li>60 min private assessment + drill plan - <strong>$120</strong></li>
+          <li>90 min private tactical build - <strong>$165</strong></li>
+          <li>4-session private package (60 min each) - <strong>$440</strong></li>
+        </ul>
+      </article>
+    </div>
+
+    <div data-tabs-target="panel" data-tab-id="semi_private" class="hidden grid gap-3">
+      <article class="rounded-xl border border-slate-200 p-4">
+        <h2 class="text-lg font-bold text-slate-900">Semi-Private Menu (2 players)</h2>
+        <ul class="mt-2 grid gap-1 text-sm text-slate-600">
+          <li>75 min technical pair session - <strong>$90 / player</strong></li>
+          <li>90 min partner strategy session - <strong>$110 / player</strong></li>
+          <li>4-session pair package - <strong>$380 / player</strong></li>
+        </ul>
+      </article>
+    </div>
+
+    <div data-tabs-target="panel" data-tab-id="group" class="hidden grid gap-3">
+      <article class="rounded-xl border border-slate-200 p-4">
+        <h2 class="text-lg font-bold text-slate-900">Small Group Menu (3-6 players)</h2>
+        <ul class="mt-2 grid gap-1 text-sm text-slate-600">
+          <li>90 min skill group clinic - <strong>$70 / player</strong></li>
+          <li>120 min live-play coached clinic - <strong>$85 / player</strong></li>
+          <li>Monthly group membership (4 clinics) - <strong>$240 / player</strong></li>
+        </ul>
+      </article>
+    </div>
+
+    <div data-tabs-target="panel" data-tab-id="junior" class="hidden grid gap-3">
+      <article class="rounded-xl border border-slate-200 p-4">
+        <h2 class="text-lg font-bold text-slate-900">Junior Development Menu</h2>
+        <ul class="mt-2 grid gap-1 text-sm text-slate-600">
+          <li>60 min junior fundamentals - <strong>$80</strong></li>
+          <li>90 min junior competitive prep - <strong>$110</strong></li>
+          <li>6-week junior progression block - <strong>$420</strong></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <h2 class="text-lg font-bold text-slate-900">Program Pricing</h2>
+    <p class="mt-1 text-sm text-slate-600">These are structured multi-week training tracks.</p>
+    <div class="mt-3 grid gap-3 sm:grid-cols-3">
+      <% @programs.each do |program| %>
+        <article class="rounded-xl border border-slate-200 p-4">
+          <p class="text-xs font-bold uppercase tracking-wide text-emerald-700"><%= program.level %></p>
+          <h3 class="mt-1 text-base font-bold text-slate-900"><%= program.title %></h3>
+          <p class="mt-1 text-sm text-slate-600"><%= pluralize(program.duration_weeks, "week") %> program</p>
+          <p class="mt-2 text-lg font-black text-slate-900">$<%= format("%.2f", program.price_dollars) %></p>
+        </article>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <h2 class="text-lg font-bold text-slate-900">Need a custom plan?</h2>
+    <p class="mt-2 text-sm text-slate-600">If you want a hybrid schedule by age group and skill level, I can build a custom training menu.</p>
+    <%= link_to "Contact Monsoud", contact_path, class: "mt-3 inline-flex items-center rounded-full bg-emerald-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800" %>
+  </section>
+</main>

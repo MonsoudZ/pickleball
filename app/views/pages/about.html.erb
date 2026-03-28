@@ -1,0 +1,49 @@
+<% content_for :title, "About" %>
+
+<main class="mx-auto grid w-full max-w-5xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
+  <section class="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-7 shadow-sm sm:p-9">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">About</p>
+    <h1 class="mt-2 text-3xl font-black leading-tight text-slate-900 sm:text-4xl">Monsoud Zanaty</h1>
+    <p class="mt-3 text-sm text-slate-700 sm:text-base">
+      I coach pickleball athletes using practical progressions that show up in real matches. We train on a private court close to Mt. Pleasent, DC,
+      and all activities are held at that location so every session stays focused and consistent.
+    </p>
+  </section>
+
+  <section class="grid gap-4 lg:grid-cols-2">
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Age Group Focus</h2>
+      <ul class="mt-3 grid gap-2 text-sm text-slate-600">
+        <li><strong>Junior (8-12):</strong> Hand-eye coordination, movement patterns, and confidence-building games.</li>
+        <li><strong>Teen (13-17):</strong> Match awareness, point construction, and disciplined shot selection.</li>
+        <li><strong>Adult (18-54):</strong> Skill acceleration, strategy systems, and competitive consistency.</li>
+        <li><strong>Senior (55+):</strong> Efficient movement, controlled pace, and injury-aware progression.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Skill Level Focus</h2>
+      <ul class="mt-3 grid gap-2 text-sm text-slate-600">
+        <li><strong>Beginner:</strong> Core rules, serve/return consistency, and court positioning.</li>
+        <li><strong>Intermediate:</strong> Third-shot drops, transition footwork, and kitchen patterns.</li>
+        <li><strong>Advanced:</strong> Speed-up reads, counter systems, and doubles communication.</li>
+        <li><strong>Tournament:</strong> Scouting plans, pressure reps, and match-day routines.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <% if @coach.present? %>
+      <h2 class="text-xl font-bold text-slate-900">Coaching Snapshot</h2>
+      <p class="mt-2 text-sm text-slate-600"><strong>Certification:</strong> <%= @coach.certification.presence || "Pickleball Performance Coach" %></p>
+      <p class="mt-1 text-sm text-slate-600"><strong>Experience:</strong> <%= pluralize(@coach.years_experience, "year") %></p>
+      <p class="mt-1 text-sm text-slate-600"><strong>Specialties:</strong> <%= @coach.specialties.presence || "Transition game, pressure drills, strategic doubles play" %></p>
+      <p class="mt-3 text-sm text-slate-600"><%= @coach.bio.presence || "Focused on helping players level up with structured reps, clear cues, and competitive routines." %></p>
+    <% end %>
+
+    <div class="mt-4 flex flex-wrap gap-2">
+      <%= link_to "See training calendar", calendar_path, class: "inline-flex items-center rounded-full bg-emerald-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800" %>
+      <%= link_to "Open pricing", pricing_path, class: "inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100" %>
+    </div>
+  </section>
+</main>
