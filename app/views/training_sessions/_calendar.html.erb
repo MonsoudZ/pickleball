@@ -26,6 +26,7 @@
                 <%= link_to training_session_path(training_session), data: { turbo_frame: "session_popover", action: "click->session-popover#openAt", session_popover_trigger: true }, class: "grid rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-2 text-xs leading-tight text-emerald-900 transition hover:bg-emerald-100" do %>
                   <span class="font-semibold"><%= training_session.starts_at.strftime("%-I:%M %p") %></span>
                   <strong class="font-semibold"><%= training_session.title %></strong>
+                  <span class="text-[11px] text-emerald-800/90"><%= training_session.coach.name %></span>
                 <% end %>
               <% end %>
             </div>
@@ -62,6 +63,7 @@
                   <%= link_to training_session_path(training_session), data: { turbo_frame: "session_popover", action: "click->session-popover#openAt", session_popover_trigger: true }, class: "grid rounded-md border border-emerald-200 bg-emerald-50 px-2 py-1.5 text-xs leading-tight text-emerald-900 transition hover:bg-emerald-100" do %>
                     <span class="font-semibold"><%= training_session.starts_at.strftime("%-I:%M %p") %></span>
                     <strong class="font-semibold"><%= training_session.title %></strong>
+                    <span class="text-[11px] text-emerald-800/90"><%= training_session.coach.name %></span>
                   <% end %>
                 <% end %>
 
