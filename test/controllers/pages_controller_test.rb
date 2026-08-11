@@ -37,6 +37,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "link[rel='canonical'][href='#{root_url}']", 1
     assert_select "meta[property='og:image'][content$='og-evergreen-pickleball.png']", 1
     assert_select "script[type='application/ld+json']", /LocalBusiness/
+    assert_select "p", /1 hour.*Capacity: 8 players.*\$120 program/
   end
 
   test "renders about page" do

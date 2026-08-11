@@ -30,6 +30,7 @@
                 <p class="text-xs font-bold uppercase tracking-wide text-emerald-700"><%= training_session.starts_at.strftime("%a, %b %-d") %> at <%= training_session.starts_at.strftime("%-I:%M %p") %></p>
                 <h3 class="mt-1 text-base font-bold text-slate-900"><%= training_session.title %></h3>
                 <p class="text-sm text-slate-600"><%= training_session.coach.name %> - <%= training_session.skill_level %> - <%= training_session.location %></p>
+                <p class="mt-1 text-sm text-slate-600"><%= session_duration_label(training_session) %> · Capacity: <%= pluralize(training_session.spots_total, "player") %><% if session_price_label(training_session) %> · <%= session_price_label(training_session) %><% end %></p>
                 <p class="mt-1 text-xs font-semibold <%= training_session.full? ? "text-amber-700" : "text-emerald-700" %>"><%= training_session.full? ? "Full · Waitlist available" : pluralize(training_session.spots_remaining, "spot") + " open" %></p>
               </div>
               <div class="flex flex-wrap gap-2">

@@ -29,6 +29,8 @@ class TrainingSessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "Drop Shot Reps", @response.body
+    assert_select "p", /Duration:.*1 hr 30 min/
+    assert_select "p", /Capacity:.*10 players/
     assert_select "a", text: "Request this session" do |links|
       assert_equal contact_path(session_id: @training_session.id), links.first["href"]
     end

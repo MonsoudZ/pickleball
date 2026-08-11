@@ -31,6 +31,22 @@ module ApplicationHelper
     ENV["BUSINESS_PHONE"].presence
   end
 
+  def session_duration_label(training_session)
+    minutes = ((training_session.ends_at - training_session.starts_at) / 1.minute).round
+    hours, remaining_minutes = minutes.divmod(60)
+
+    return "#{minutes} min" if hours.zero?
+    return pluralize(hours, "hour") if remaining_minutes.zero?
+
+    "#{hours} hr #{remaining_minutes} min"
+  end
+
+  def session_price_label(training_session)
+    return unless training_session.training_program
+
+    "#{number_to_currency(training_session.training_program.price_dollars, precision: 0)} program"
+  end
+
   def local_business_schema
     {
       "@context": "https://schema.org",

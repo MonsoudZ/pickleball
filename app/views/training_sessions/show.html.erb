@@ -4,9 +4,12 @@
     <h3 class="text-lg font-bold text-slate-900"><%= @training_session.title %></h3>
     <p class="text-sm text-slate-700"><strong>Coach:</strong> <%= @training_session.coach.name %></p>
     <p class="text-sm text-slate-700"><strong>Level:</strong> <%= @training_session.skill_level %></p>
+    <p class="text-sm text-slate-700"><strong>Duration:</strong> <%= session_duration_label(@training_session) %></p>
+    <p class="text-sm text-slate-700"><strong>Capacity:</strong> <%= pluralize(@training_session.spots_total, "player") %></p>
     <p class="text-sm text-slate-700"><strong>Location:</strong> <%= @training_session.location %></p>
     <% if @training_session.training_program.present? %>
       <p class="text-sm text-slate-700"><strong>Program:</strong> <%= @training_session.training_program.title %></p>
+      <p class="text-sm text-slate-700"><strong>Price:</strong> <%= session_price_label(@training_session) %></p>
     <% end %>
     <% if @training_session.full? %>
       <p class="text-sm font-semibold text-amber-700">Full — waitlist requests are open</p>
