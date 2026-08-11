@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_000002) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_11_000003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,9 +62,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_000002) do
     t.boolean "policy_accepted", default: false, null: false
     t.string "skill_level", null: false
     t.string "status", default: "new", null: false
+    t.bigint "training_session_id"
     t.datetime "updated_at", null: false
+    t.boolean "waitlist", default: false, null: false
     t.index ["created_at"], name: "index_contact_messages_on_created_at"
     t.index ["status"], name: "index_contact_messages_on_status"
+    t.index ["training_session_id"], name: "index_contact_messages_on_training_session_id"
   end
 
   create_table "training_programs", force: :cascade do |t|
@@ -99,6 +102,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_000002) do
     t.index ["training_program_id"], name: "index_training_sessions_on_training_program_id"
   end
 
+  add_foreign_key "contact_messages", "training_sessions", on_delete: :nullify
   add_foreign_key "training_sessions", "coaches"
   add_foreign_key "training_sessions", "training_programs"
 end

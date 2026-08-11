@@ -29,6 +29,21 @@ class TrainingSessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "Drop Shot Reps", @response.body
+    assert_select "a", text: "Request this session" do |links|
+      assert_equal contact_path(session_id: @training_session.id), links.first["href"]
+    end
+  end
+
+  test "offers a waitlist when the session is full" do
+    @training_session.update!(spots_booked: @training_session.spots_total)
+
+    get training_session_url(@training_session)
+
+    assert_response :success
+    assert_select "p", /Full.*waitlist requests are open/
+    assert_select "a", text: "Join waitlist" do |links|
+      assert_equal contact_path(session_id: @training_session.id), links.first["href"]
+    end
   end
 
   test "does not show unpublished sessions" do

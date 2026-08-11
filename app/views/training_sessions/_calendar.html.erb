@@ -27,6 +27,7 @@
                   <span class="font-semibold"><%= training_session.starts_at.strftime("%-I:%M %p") %></span>
                   <strong class="font-semibold"><%= training_session.title %></strong>
                   <span class="text-[11px] text-emerald-800/90"><%= training_session.coach.name %></span>
+                  <span class="text-[11px] font-semibold"><%= training_session.full? ? "Full · Waitlist" : pluralize(training_session.spots_remaining, "spot") + " open" %></span>
                 <% end %>
               <% end %>
             </div>
@@ -64,6 +65,7 @@
                     <span class="font-semibold"><%= training_session.starts_at.strftime("%-I:%M %p") %></span>
                     <strong class="font-semibold"><%= training_session.title %></strong>
                     <span class="text-[11px] text-emerald-800/90"><%= training_session.coach.name %></span>
+                    <span class="text-[11px] font-semibold"><%= training_session.full? ? "Full · Waitlist" : pluralize(training_session.spots_remaining, "spot") + " open" %></span>
                   <% end %>
                 <% end %>
 

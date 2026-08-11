@@ -17,6 +17,9 @@ Rails 8 personal training web app for pickleball coaching.
 - Dedicated FAQ page
 - Pricing page with tabbed training menu
 - Persisted contact inquiries with admin workflow statuses
+- Per-IP contact rate limiting and a hidden honeypot spam trap
+- Session-specific requests with automatic waitlist capture for full sessions
+- Operational admin dashboard with inquiry and session metrics
 - Turbo Frame-powered monthly training calendar
 - Compact session popover loaded without full page refresh
 - Fake demo dataset via `db:seed_demo` with one coach, programs, and sessions backfilled 12 months plus 3 months ahead

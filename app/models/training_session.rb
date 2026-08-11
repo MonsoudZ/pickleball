@@ -3,6 +3,7 @@ class TrainingSession < ApplicationRecord
 
   belongs_to :coach
   belongs_to :training_program, optional: true
+  has_many :contact_messages, dependent: :nullify
 
   scope :upcoming, -> { where("starts_at >= ?", Time.current).order(:starts_at) }
   scope :publicly_visible, -> { where(published: true, status: "scheduled") }

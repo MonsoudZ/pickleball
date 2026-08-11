@@ -12,6 +12,9 @@
   <% if flash[:notice].present? %>
     <div class="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800"><%= flash[:notice] %></div>
   <% end %>
+  <% if flash[:alert].present? %>
+    <div class="rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700"><%= flash[:alert] %></div>
+  <% end %>
 
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
     <% if business_email.present? || business_phone.present? %>
@@ -27,6 +30,25 @@
     <% end %>
 
     <%= form_with model: @contact_message, url: contact_path, class: "grid gap-4" do |form| %>
+      <%= form.hidden_field :training_session_id %>
+      <div class="hidden" aria-hidden="true">
+        <%= form.label :website, "Website" %>
+        <%= form.text_field :website, tabindex: -1, autocomplete: "off" %>
+      </div>
+
+      <% if @selected_session.present? %>
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
+          <p class="text-xs font-bold uppercase tracking-wide"><%= @selected_session.full? ? "Waitlist request" : "Selected session" %></p>
+          <p class="mt-1 font-bold"><%= @selected_session.title %></p>
+          <p class="mt-1"><%= @selected_session.starts_at.strftime("%A, %B %-d at %-I:%M %p") %></p>
+          <% if @selected_session.full? %>
+            <p class="mt-2 font-medium">This session is full. Submit the form to join its waitlist.</p>
+          <% else %>
+            <p class="mt-2"><%= pluralize(@selected_session.spots_remaining, "spot") %> currently available.</p>
+          <% end %>
+        </div>
+      <% end %>
+
       <% if @contact_message.errors.any? %>
         <div class="rounded-xl border border-rose-300 bg-rose-50 p-3 text-sm text-rose-700">
           <p class="font-semibold">Please fix the fields below:</p>

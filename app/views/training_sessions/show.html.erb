@@ -8,10 +8,14 @@
     <% if @training_session.training_program.present? %>
       <p class="text-sm text-slate-700"><strong>Program:</strong> <%= @training_session.training_program.title %></p>
     <% end %>
-    <p class="text-sm text-slate-700"><strong>Availability:</strong> <%= @training_session.spots_remaining %> of <%= @training_session.spots_total %> spots open</p>
+    <% if @training_session.full? %>
+      <p class="text-sm font-semibold text-amber-700">Full — waitlist requests are open</p>
+    <% else %>
+      <p class="text-sm text-slate-700"><strong>Availability:</strong> <%= @training_session.spots_remaining %> of <%= @training_session.spots_total %> spots open</p>
+    <% end %>
     <% if @training_session.notes.present? %>
       <p class="text-sm text-slate-700"><strong>Session focus:</strong> <%= @training_session.notes %></p>
     <% end %>
-
+    <%= link_to(@training_session.full? ? "Join waitlist" : "Request this session", contact_path(session_id: @training_session.id), data: { turbo_frame: "_top" }, class: "mt-2 inline-flex items-center justify-center rounded-full bg-emerald-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800") %>
   </article>
 <% end %>

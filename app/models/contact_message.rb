@@ -1,4 +1,6 @@
 class ContactMessage < ApplicationRecord
+  attr_accessor :website
+
   AGE_GROUPS = [
     "Junior (8-12)",
     "Teen (13-17)",
@@ -16,6 +18,10 @@ class ContactMessage < ApplicationRecord
 
   STATUSES = %w[new contacted closed].freeze
 
+  belongs_to :training_session, optional: true
+
+  before_validation :capture_waitlist_status, on: :create
+
   validates :name, :email, :age_group, :skill_level, :message, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :age_group, inclusion: { in: AGE_GROUPS }
@@ -26,5 +32,15 @@ class ContactMessage < ApplicationRecord
 
   def youth_request?
     age_group.in?(YOUTH_AGE_GROUPS)
+  end
+
+  def request_type
+    waitlist? ? "Waitlist" : "Session request"
+  end
+
+  private
+
+  def capture_waitlist_status
+    self.waitlist = training_session&.full? || false
   end
 end

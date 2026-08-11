@@ -38,4 +38,31 @@ class ContactMessageTest < ActiveSupport::TestCase
     inquiry.guardian_name = "Parent Player"
     assert inquiry.valid?
   end
+
+  test "captures waitlist status from the selected session" do
+    coach = Coach.create!(name: "Waitlist Coach", years_experience: 1)
+    training_session = TrainingSession.create!(
+      title: "Full Clinic",
+      starts_at: 1.week.from_now,
+      ends_at: 1.week.from_now + 1.hour,
+      location: "Private Court",
+      skill_level: "Intermediate",
+      spots_total: 4,
+      spots_booked: 4,
+      coach: coach
+    )
+    inquiry = ContactMessage.new(
+      name: "Taylor Player",
+      email: "taylor@example.com",
+      age_group: "Adult (18-54)",
+      skill_level: "Intermediate",
+      message: "Please add me to the waitlist.",
+      policy_accepted: true,
+      training_session: training_session
+    )
+
+    assert inquiry.valid?
+    assert inquiry.waitlist?
+    assert_equal "Waitlist", inquiry.request_type
+  end
 end
