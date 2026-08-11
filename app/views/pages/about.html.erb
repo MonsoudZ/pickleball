@@ -5,8 +5,8 @@
     <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">About</p>
     <h1 class="mt-2 text-3xl font-black leading-tight text-slate-900 sm:text-4xl">Monsoud Zanaty</h1>
     <p class="mt-3 text-sm text-slate-700 sm:text-base">
-      I coach pickleball athletes using practical progressions that show up in real matches. We train on a private court close to Mt. Pleasent, DC,
-      and all activities are held at that location so every session stays focused and consistent.
+      I offer pickleball instruction built around practical progressions for real match situations. Training is available in Evergreen, Colorado,
+      with session details and the exact court location provided after availability is confirmed.
     </p>
   </section>
 
@@ -35,10 +35,18 @@
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
     <% if @coach.present? %>
       <h2 class="text-xl font-bold text-slate-900">Coaching Snapshot</h2>
-      <p class="mt-2 text-sm text-slate-600"><strong>Certification:</strong> <%= @coach.certification.presence || "Pickleball Performance Coach" %></p>
-      <p class="mt-1 text-sm text-slate-600"><strong>Experience:</strong> <%= pluralize(@coach.years_experience, "year") %></p>
-      <p class="mt-1 text-sm text-slate-600"><strong>Specialties:</strong> <%= @coach.specialties.presence || "Transition game, pressure drills, strategic doubles play" %></p>
-      <p class="mt-3 text-sm text-slate-600"><%= @coach.bio.presence || "Focused on helping players level up with structured reps, clear cues, and competitive routines." %></p>
+      <% if @coach.certification.present? %>
+        <p class="mt-2 text-sm text-slate-600"><strong>Certification:</strong> <%= @coach.certification %></p>
+      <% end %>
+      <% if @coach.years_experience.positive? %>
+        <p class="mt-1 text-sm text-slate-600"><strong>Experience:</strong> <%= pluralize(@coach.years_experience, "year") %></p>
+      <% end %>
+      <% if @coach.specialties.present? %>
+        <p class="mt-1 text-sm text-slate-600"><strong>Specialties:</strong> <%= @coach.specialties %></p>
+      <% end %>
+      <% if @coach.bio.present? %>
+        <p class="mt-3 text-sm text-slate-600"><%= @coach.bio %></p>
+      <% end %>
     <% end %>
 
     <div class="mt-4 flex flex-wrap gap-2">

@@ -5,7 +5,7 @@ class TrainingSessionsController < ApplicationController
     @month = parsed_month
     visible_range = @month.beginning_of_month.beginning_of_week(:sunday).beginning_of_day..@month.end_of_month.end_of_week(:sunday).end_of_day
 
-    @sessions = TrainingSession.includes(:coach, :training_program)
+    @sessions = TrainingSession.publicly_visible.includes(:coach, :training_program)
                                .where(starts_at: visible_range)
                                .order(:starts_at)
     @sessions_by_day = @sessions.group_by { |session| session.starts_at.to_date }
@@ -16,7 +16,7 @@ class TrainingSessionsController < ApplicationController
   private
 
   def set_training_session
-    @training_session = TrainingSession.includes(:coach, :training_program).find(params[:id])
+    @training_session = TrainingSession.publicly_visible.includes(:coach, :training_program).find(params[:id])
   end
 
   def parsed_month

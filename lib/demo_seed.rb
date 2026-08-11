@@ -157,6 +157,8 @@ class DemoSeed
           notes: template[:notes],
           spots_total: template[:spots_total],
           spots_booked: spots_booked,
+          published: true,
+          status: "scheduled",
           coach: coach,
           training_program: template[:training_program]
         )

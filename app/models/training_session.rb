@@ -1,12 +1,16 @@
 class TrainingSession < ApplicationRecord
+  STATUSES = %w[scheduled canceled].freeze
+
   belongs_to :coach
   belongs_to :training_program, optional: true
 
   scope :upcoming, -> { where("starts_at >= ?", Time.current).order(:starts_at) }
+  scope :publicly_visible, -> { where(published: true, status: "scheduled") }
 
   validates :title, :starts_at, :ends_at, :location, :skill_level, presence: true
   validates :spots_total, numericality: { greater_than: 0 }
   validates :spots_booked, numericality: { greater_than_or_equal_to: 0 }
+  validates :status, inclusion: { in: STATUSES }
   validate :ends_after_starts
   validate :spots_booked_within_capacity
 

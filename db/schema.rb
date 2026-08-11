@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_28_000551) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_11_000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_000551) do
     t.integer "years_experience", default: 0, null: false
   end
 
+  create_table "contact_messages", force: :cascade do |t|
+    t.string "age_group", null: false
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "goals"
+    t.string "guardian_name"
+    t.text "message", null: false
+    t.string "name", null: false
+    t.string "phone"
+    t.boolean "policy_accepted", default: false, null: false
+    t.string "skill_level", null: false
+    t.string "status", default: "new", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_contact_messages_on_created_at"
+    t.index ["status"], name: "index_contact_messages_on_status"
+  end
+
   create_table "training_programs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
@@ -67,14 +84,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_000551) do
     t.datetime "ends_at", null: false
     t.string "location", null: false
     t.text "notes"
+    t.boolean "published", default: false, null: false
     t.string "skill_level", null: false
     t.integer "spots_booked", default: 0, null: false
     t.integer "spots_total", default: 8, null: false
     t.datetime "starts_at", null: false
+    t.string "status", default: "scheduled", null: false
     t.string "title", null: false
     t.integer "training_program_id"
     t.datetime "updated_at", null: false
     t.index ["coach_id"], name: "index_training_sessions_on_coach_id"
+    t.index ["published", "status", "starts_at"], name: "index_training_sessions_on_public_schedule"
     t.index ["starts_at"], name: "index_training_sessions_on_starts_at"
     t.index ["training_program_id"], name: "index_training_sessions_on_training_program_id"
   end

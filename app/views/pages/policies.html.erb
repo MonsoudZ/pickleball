@@ -1,0 +1,65 @@
+<% content_for :title, "Training and Privacy Policies" %>
+<% content_for :description, "Cancellation, weather, payment, privacy, and youth-training policies for Pickleball Performance Lab in Evergreen, Colorado." %>
+
+<main class="mx-auto grid w-full max-w-5xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
+  <section class="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-7 shadow-sm sm:p-9">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Policies</p>
+    <h1 class="mt-2 text-3xl font-black leading-tight text-slate-900 sm:text-4xl">Clear Expectations for Training</h1>
+    <p class="mt-3 text-sm text-slate-700 sm:text-base">These policies apply to training provided by Pickleball Performance Lab in Evergreen, Colorado. Last updated August 11, 2026.</p>
+  </section>
+
+  <section class="grid gap-4">
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Cancellation and Rescheduling</h2>
+      <ul class="mt-3 grid list-disc gap-2 pl-5 text-sm leading-relaxed text-slate-600">
+        <li>Cancel or request a change at least 24 hours before the scheduled start for a full refund or session credit.</li>
+        <li>Cancellations within 24 hours and missed sessions are not normally refundable, except for emergencies or unsafe travel conditions.</li>
+        <li>If the coach cancels, you may choose a full refund or a rescheduled session.</li>
+        <li>Package expiration and cancellation terms will be disclosed before a package is purchased.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Weather and Court Conditions</h2>
+      <ul class="mt-3 grid list-disc gap-2 pl-5 text-sm leading-relaxed text-slate-600">
+        <li>Outdoor sessions may be postponed for lightning, snow, ice, smoke, excessive wind, unsafe temperatures, wet courts, or other hazardous conditions.</li>
+        <li>The coach will make the final court-safety decision and contact participants as soon as reasonably possible.</li>
+        <li>A session canceled for unsafe weather receives a full credit, reschedule, or refund. Players are not penalized for official road closures or unsafe travel conditions.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Payment and Booking</h2>
+      <ul class="mt-3 grid list-disc gap-2 pl-5 text-sm leading-relaxed text-slate-600">
+        <li>A website inquiry does not reserve a session. The date, format, total price, payment method, and location must be confirmed directly.</li>
+        <li>Payment is due when the booking is confirmed unless a different arrangement is agreed in writing.</li>
+        <li>No recurring charge is created by submitting the inquiry form. Any package or recurring arrangement requires separate approval.</li>
+        <li>Refunds are returned through the original payment method when practical.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Privacy</h2>
+      <div class="mt-3 grid gap-3 text-sm leading-relaxed text-slate-600">
+        <p>The inquiry form collects your name, email address, optional phone number, age group, optional or required guardian name, skill level, goals, message, and policy acceptance. This information is used to respond to your request, arrange training, maintain business records, and protect the safety of participants.</p>
+        <p>Inquiry data is stored with the website hosting and database providers and is available to authorized administrators. It is not sold or used for targeted advertising. Information may be disclosed when required by law or when reasonably necessary to protect a participant.</p>
+        <p>Records are kept only as long as reasonably needed for these purposes. You may request access, correction, or deletion through the contact form<% if business_email.present? %> or by emailing <%= mail_to business_email, business_email, class: "font-medium text-emerald-700 hover:text-emerald-800" %><% end %>. Identity may be verified before a request is completed.</p>
+      </div>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-900">Youth Training</h2>
+      <ul class="mt-3 grid list-disc gap-2 pl-5 text-sm leading-relaxed text-slate-600">
+        <li>A parent or legal guardian must submit or approve every request for a participant under 18 and must provide current emergency contact information before training.</li>
+        <li>Scheduling, payment, location details, and direct electronic communication for a minor are handled through the parent or guardian.</li>
+        <li>A parent or guardian may be required to remain present, particularly for younger players or a first session.</li>
+        <li>Parents must disclose relevant allergies, injuries, medical restrictions, behavioral needs, and authorized pickup arrangements. Coaching is not medical care.</li>
+        <li>Suspected abuse, neglect, or an immediate safety risk may be reported to the appropriate authorities.</li>
+      </ul>
+    </article>
+  </section>
+
+  <div>
+    <%= link_to "Ask a policy question", contact_path, class: "inline-flex items-center rounded-full bg-emerald-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800" %>
+  </div>
+</main>

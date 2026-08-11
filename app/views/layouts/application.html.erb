@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Pickleball Training" %></title>
+    <title><%= seo_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= seo_description %>">
+    <link rel="canonical" href="<%= canonical_url %>">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Pickleball Performance Lab">
+    <meta property="og:title" content="<%= seo_title %>">
+    <meta property="og:description" content="<%= seo_description %>">
+    <meta property="og:url" content="<%= canonical_url %>">
+    <meta property="og:image" content="<%= open_graph_image_url %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Pickleball court among evergreen trees in the Colorado foothills">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= seo_title %>">
+    <meta name="twitter:description" content="<%= seo_description %>">
+    <meta name="twitter:image" content="<%= open_graph_image_url %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Pickleball Training">
     <meta name="mobile-web-app-capable" content="yes">
@@ -16,6 +32,7 @@
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script type="application/ld+json"><%= raw json_escape(local_business_schema.to_json) %></script>
   </head>
 
   <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
@@ -30,6 +47,7 @@
             <%= link_to "Pricing", pricing_path, class: "rounded-full px-3 py-1.5 hover:bg-slate-200/70" %>
             <%= link_to "Contact", contact_path, class: "rounded-full px-3 py-1.5 hover:bg-slate-200/70" %>
             <%= link_to "About", about_path, class: "rounded-full px-3 py-1.5 hover:bg-slate-200/70" %>
+            <%= link_to "Policies", policies_path, class: "rounded-full px-3 py-1.5 hover:bg-slate-200/70" %>
           </nav>
         </div>
       </header>
@@ -41,7 +59,13 @@
           <div>
             <p class="text-sm font-black tracking-wide text-slate-900">Pickleball Performance Lab</p>
             <p class="mt-1 text-sm text-slate-600">Coach Monsoud Zanaty</p>
-            <p class="mt-1 text-sm text-slate-600">Private Court near Mt. Pleasent, DC</p>
+            <p class="mt-1 text-sm text-slate-600">Training in Evergreen, Colorado</p>
+            <% if business_email.present? %>
+              <p class="mt-1 text-sm"><%= mail_to business_email, business_email, class: "text-slate-600 hover:text-slate-900" %></p>
+            <% end %>
+            <% if business_phone.present? %>
+              <p class="mt-1 text-sm"><%= link_to business_phone, "tel:#{business_phone.gsub(/[^+\d]/, '')}", class: "text-slate-600 hover:text-slate-900" %></p>
+            <% end %>
           </div>
 
           <div class="pt-1 text-sm text-slate-600 lg:pt-8">
@@ -50,6 +74,7 @@
               <%= link_to "FAQ", faq_path, class: "hover:text-slate-900" %>
               <%= link_to "Pricing", pricing_path, class: "hover:text-slate-900" %>
               <%= link_to "Contact", contact_path, class: "hover:text-slate-900" %>
+              <%= link_to "Policies", policies_path, class: "hover:text-slate-900" %>
             </div>
           </div>
 

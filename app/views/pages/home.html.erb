@@ -1,4 +1,5 @@
-<% content_for :title, "Pickleball Performance Lab" %>
+<% content_for :title, "Pickleball Coaching in Evergreen, Colorado" %>
+<% content_for :description, "Private pickleball lessons, small-group clinics, and match-focused training with Monsoud Zanaty in Evergreen, Colorado." %>
 
 <main class="mx-auto grid w-full max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
   <section class="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-7 shadow-sm sm:p-9">
@@ -6,7 +7,7 @@
     <h1 class="mt-2 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">Train Smarter for Competitive Pickleball</h1>
     <p class="mt-3 max-w-3xl text-sm text-slate-600 sm:text-base">
       Build consistency in your dinks, confidence at the kitchen line, and better decision-making under pressure.
-      Browse sessions and book your next rep-focused workout.
+      Browse training options and request your next rep-focused workout.
     </p>
     <div class="mt-5 flex flex-wrap gap-3">
       <%= link_to "Browse Calendar", calendar_path, class: "inline-flex items-center rounded-full bg-emerald-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800" %>
@@ -35,7 +36,7 @@
           <% end %>
         </ul>
       <% else %>
-        <p class="rounded-xl border border-dashed border-slate-300 p-4 text-sm text-slate-500">No sessions yet. Seed data can be loaded with <code>bin/rails db:seed</code>.</p>
+        <p class="rounded-xl border border-dashed border-slate-300 p-4 text-sm text-slate-500">No public sessions are currently listed. Contact me to ask about private availability.</p>
       <% end %>
     </article>
   </section>
@@ -60,7 +61,9 @@
         <% @coaches.each do |coach| %>
           <li class="rounded-xl border border-slate-200 p-3">
             <h3 class="text-base font-bold text-slate-900"><%= coach.name %></h3>
-            <p class="mt-1 text-sm font-semibold text-emerald-700"><%= coach.certification %> - <%= pluralize(coach.years_experience, "year") %> coaching</p>
+            <% if coach.certification.present? || coach.years_experience.positive? %>
+              <p class="mt-1 text-sm font-semibold text-emerald-700"><%= [coach.certification.presence, (pluralize(coach.years_experience, "year") + " coaching" if coach.years_experience.positive?)].compact.join(" - ") %></p>
+            <% end %>
             <p class="mt-1 text-sm text-slate-600"><%= coach.bio %></p>
           </li>
         <% end %>

@@ -12,6 +12,7 @@ class TrainingSessionsControllerTest < ActionDispatch::IntegrationTest
       skill_level: "Intermediate",
       spots_total: 10,
       spots_booked: 4,
+      published: true,
       coach: coach
     )
   end
@@ -28,5 +29,22 @@ class TrainingSessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "Drop Shot Reps", @response.body
+  end
+
+  test "does not show unpublished sessions" do
+    @training_session.update!(published: false)
+
+    get calendar_url(month: "2026-04")
+
+    assert_response :success
+    assert_no_match "Drop Shot Reps", response.body
+  end
+
+  test "does not show canceled sessions" do
+    @training_session.update!(status: "canceled")
+
+    get training_session_url(@training_session)
+
+    assert_response :not_found
   end
 end
